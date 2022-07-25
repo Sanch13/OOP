@@ -13,7 +13,6 @@ class AppStore:
         if not obj:
             return False
         obj.blocked = True
-        print(obj)
         return True
 
     def total_apps(self):
@@ -25,4 +24,9 @@ class Application:
         self.name = name
         self.blocked = False
 
+
+store = AppStore()
+app_youtube = Application("Youtube")
+store.add_application(app_youtube)
+store.remove_application(app_youtube)
 

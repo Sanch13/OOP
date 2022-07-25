@@ -1,28 +1,39 @@
-class AppStore:
-    def __init__(self):
-        self.store = {}
+class Viber:
+    chat = {}
 
-    def add_application(self, app):
-        self.store[id(app)] = app
+    @classmethod
+    def add_message(cls, msg):
+        cls.chat[id(msg)] = msg
 
-    def remove_application(self, app):
-        self.store.pop(id(app))
+    @classmethod
+    def remove_message(cls, msg):
+        key = id(msg)
+        if key in cls.chat:
+            cls.chat.pop(id(msg))
 
-    def block_application(self, app):
-        obj = self.store.get(id(app), False)
-        if not obj:
-            return False
-        obj.blocked = True
-        print(obj)
-        return True
+    @classmethod
+    def set_like(cls, msg):
+        msg.fl_like = not msg.fl_like
 
-    def total_apps(self):
-        return len(self.store)
+    @classmethod
+    def show_last_message(cls, num):
+        for m in tuple(cls.chat.values())[-num:]:
+            print(m, end=' ')
 
-
-class Application:
-    def __init__(self, name):
-        self.name = name
-        self.blocked = False
+    @classmethod
+    def total_messages(cls):
+        return len(cls.chat)
 
 
+class Message:
+    def __init__(self, text):
+        self.text = text
+        self.fl_like = False
+
+msg = Message("Всем привет!")
+Viber.add_message(msg)
+print(msg.fl_like, msg.text)
+Viber.add_message(Message("Это курс по Python ООП."))
+Viber.add_message(Message("Что вы о нем думаете?"))
+Viber.set_like(msg)
+Viber.remove_message(msg)
