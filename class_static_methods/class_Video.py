@@ -37,5 +37,5 @@ v1.create("Python")    # create name v1
 v2.create("Python ООП")    # create name v2
 YouTube.add_video(v1)    # add object v1 into list videos
 YouTube.add_video(v2)    # add object v2 into list videos
-YouTube.play(0)    # play object from list videos off the index 0
-YouTube.play(1)    # play object from list videos off the index 1
+YouTube.play(0)    # play object from list videos of the index 0
+YouTube.play(1)    # play object from list videos of the index 1
