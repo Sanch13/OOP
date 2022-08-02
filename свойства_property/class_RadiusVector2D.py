@@ -3,8 +3,8 @@ class RadiusVector2D:
     MAX_COORD = 1024
 
     def __init__(self, x=0, y=0):
-        self.__x = x if self.__check_value(x) else 0
-        self.__y = y if self.__check_value(y) else 0
+        self.__x = self.__check_value(x)    # check value then init it
+        self.__y = self.__check_value(y)    # check value then init it
 
     @property
     def x(self):
@@ -26,10 +26,8 @@ class RadiusVector2D:
 
     @classmethod
     def __check_value(cls, value):
-        if not isinstance(value, (int, float)):
-            return False
-
-        return cls.MIN_COORD <= value <= cls.MAX_COORD
+        '''return the number if the condition is correct otherwise return 0'''
+        return value if isinstance(value, (int, float)) and cls.MIN_COORD <= value <= cls.MAX_COORD else 0
 
     @staticmethod
     def norm2(vector):

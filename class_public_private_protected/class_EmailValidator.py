@@ -24,7 +24,7 @@ class EmailValidator:
         if len(parts[0]) > 100 and len(parts[1]) > 50:    # if first parts more than 100 then False
             return False                                  # if second parts more than 50 then False
 
-        if not parts[1].count('.') >= 1:    # if quantity '.' more than or equal 1 then True else False
+        if not parts[1].count('.') >= 1:    # if quantity '.' more or equal 1 then True else False
             return False
 
         if not email.count('..') == 0:    # if quantity '..' equal 0 then True else False
