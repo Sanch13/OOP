@@ -147,5 +147,30 @@ tr.add("milk", "молоко")
 tr.remove("car")
 # print(*tr.translate('go'))
 #########################################################################################
+import random
+class Figure:
+    def __init__(self, a, b, c, d):
+        self.sp = a, b
+        self.ep = c, d
+
+
+class Line(Figure):
+    pass
+class Rect(Figure):
+    pass
+class Ellipse(Figure):
+    pass
+def rnd_num():
+    return random.randint(0, 9)
+
+
+obj_cls = [Line, Rect, Ellipse]
+elements = [random.choice(obj_cls)(rnd_num(), rnd_num(), rnd_num(), rnd_num()) for _ in range(217)]
+for obj in elements:
+    if isinstance(obj, Line):
+        setattr(obj, 'sp', (0, 0))
+        setattr(obj, 'ep', (0, 0))
+
+
 
 
