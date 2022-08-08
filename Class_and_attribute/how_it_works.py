@@ -3,41 +3,28 @@ class Point:
     circle = 2
 
 
-# a = Point()
-# b = Point()
+a = Point()
+b = Point()
+# print(id(a.color) == id(b.color), a.color, b.color)  # True Red Red. Ссылаються на атрибут color класса Point
+# Point.color = 'Grey'  # Изменяем атрибут color класса Point
 #
-# print(id(a.color) == id(b.color), a.color, b.color)
-# Point.color = 'Grey'
+# print(id(a.color) == id(b.color), a.color, b.color)  # True Grey Grey. Атрибут color класса Point изменен на Grey
+# b.color = 'Green'  # Изменяем локальное свойство color экземпляра b класса Point
 #
-# print(id(a.color) == id(b.color), a.color, b.color)
-# b.color = 'Green'
-#
-# print(Point.__dict__)
-# print(id(a.color) == id(b.color), a.color, b.color)
+# print(Point.__dict__)  # {'color': 'Grey', 'circle': 2 and other param}
+# print(id(a.color) == id(b.color), a.color, b.color)  # False Grey Green. a ссылается на на атрибут color класса Point
+#                                                      # b ссылается на локальное свойство color экземпляра b класса Point
 #########################################################################################
 class Goods:
     title = "Мороженое"
     weight = 154
     tp = "Еда"
     price = 1024
-
-
 # setattr(Goods, "price", 2048)
 # Goods.price = 2048
 # setattr(Goods, "inflation", 100)
 # Goods.inflation = 100
 # print(Goods.__dict__)
-#########################################################################################
-class Car:
-    pass
-
-
-# setattr(Car, "model", "Тойота")
-# setattr(Car, "color", "Розовый")
-# setattr(Car, "number", "П111УУ77")
-#
-# print(Car.__dict__.get('color'))
-# print(getattr(Car, "color", False))
 #########################################################################################
 class Notes:
     uid = 1005435
@@ -45,15 +32,7 @@ class Notes:
     author = "И.С. Бах"
     pages = 2
 
-
 # print(getattr(Notes, "author"))
-#########################################################################################
-class Dictionary:
-    rus = "Питон"
-    eng = "Python"
-
-
-# print(getattr(Dictionary, "rus_word", False))
 #########################################################################################
 class TravelBlog:
     total_blogs = 0
@@ -92,3 +71,81 @@ p1 = Person()
 # print(True if p1.__dict__.get("job") else False)
 # print('job' in p1.__dict__)
 #########################################################################################
+import sys
+
+
+class StreamData:   # здесь объявляется класс StreamData
+    def create(self, fields, lst_values):
+        if len(fields) != len(lst_values):  # Если кол-во элементов fields и lst_values не равны то return False и
+            return False                    # локальные свойства не создадутся
+        else:
+            self.__dict__ = dict(zip(fields, lst_values))  # локальные свойства экз-ра класса будут создоваться
+                                                           # из эл-тов fields и lst_values и устан. в  self.__dict__
+            return True  # возвращает True
+
+
+# class StreamReader:
+#     FIELDS = ('id', 'title', 'pages')
+#
+#     def readlines(self):
+#         lst_in = list(map(str.strip, sys.stdin.readlines()))  # считывание списка строк из входного потока
+#         sd = StreamData()   # создается экземпляр sd класса StreamData и он ссылается на локальные сво-ва self.__dict__
+#         res = sd.create(self.FIELDS, lst_in)    # переменная res ссылается на True либо False
+#         return sd, res   # создается кортедж. tuple(sd, res). Возвращает tuple[0] = sd который ссылается
+#                          # на локальные сво-ва self.__dict__ экземпляра sd класса StreamData,
+#                          # Возвращает tuple[1] = True либо False
+#
+# sr = StreamReader()   # создается экземпляр sr класса StreamReader
+# data, result = sr.readlines()   # Из sr.readlines() вернеться ссылка на кортеж. data будет ссылаться на tuple[0]
+#                                 # result будет ссылаться на tuple[1]
+#########################################################################################
+# import sys
+#
+# # программу не менять, только добавить два метода
+# lst_in = list(map(str.strip, sys.stdin.readlines()))  # считывание списка строк из входного потока
+#
+# class DataBase:
+#     lst_data = []
+#     FIELDS = ('id', 'name', 'old', 'salary')
+#
+#     def insert(self, data):
+#         for el in data:
+#             self.lst_data.append(dict(zip(self.FIELDS, el.split())))
+#
+#     def select(self, a, b):
+#         return self.lst_data[a:b + 1]
+#
+#
+# db = DataBase()
+# db.insert(lst_in)
+# print(db.select(0, 2))
+#########################################################################################
+class Translator:
+    def __init__(self):  # Инициализация экземпляра класса Translator
+        self.lst = {}  # Инициализация словаря lst экземпляра класса Translator
+
+    def add(self, eng, rus):
+        self.lst.setdefault(eng, []).append(rus)  # добавление eng(key) - rus(value). "tree" - "дерево"
+
+    def remove(self, eng):
+        del self.lst[eng]  # удаление по ключу eng(key) из лок сво-ва lst[eng] экземпляра класса Translator
+
+    def translate(self, eng):  # возвращение по ключу eng(key) из лок сво-ва lst[eng] экземпляра класса Translator
+        return self.lst[eng]
+
+
+tr = Translator()
+tr.add("tree", "дерево")
+tr.add("car", "машина")
+tr.add("car", "автомобиль")
+tr.add("leaf", "лист")
+tr.add("river", "река")
+tr.add("go", "идти")
+tr.add("go", "ехать")
+tr.add("go", "ходить")
+tr.add("milk", "молоко")
+tr.remove("car")
+# print(*tr.translate('go'))
+#########################################################################################
+
+
