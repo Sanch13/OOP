@@ -1,76 +1,3 @@
-class Point:
-    color = "Red"
-    circle = 2
-
-
-a = Point()
-b = Point()
-# print(id(a.color) == id(b.color), a.color, b.color)  # True Red Red. Ссылаються на атрибут color класса Point
-# Point.color = 'Grey'  # Изменяем атрибут color класса Point
-#
-# print(id(a.color) == id(b.color), a.color, b.color)  # True Grey Grey. Атрибут color класса Point изменен на Grey
-# b.color = 'Green'  # Изменяем локальное свойство color экземпляра b класса Point
-#
-# print(Point.__dict__)  # {'color': 'Grey', 'circle': 2 and other param}
-# print(id(a.color) == id(b.color), a.color, b.color)  # False Grey Green. a ссылается на на атрибут color класса Point
-#                                                      # b ссылается на локальное свойство color экземпляра b класса Point
-#########################################################################################
-class Goods:
-    title = "Мороженое"
-    weight = 154
-    tp = "Еда"
-    price = 1024
-# setattr(Goods, "price", 2048)
-# Goods.price = 2048
-# setattr(Goods, "inflation", 100)
-# Goods.inflation = 100
-# print(Goods.__dict__)
-#########################################################################################
-class Notes:
-    uid = 1005435
-    title = "Шутка"
-    author = "И.С. Бах"
-    pages = 2
-
-# print(getattr(Notes, "author"))
-#########################################################################################
-class TravelBlog:
-    total_blogs = 0
-
-
-tb1 = TravelBlog()
-tb1.name = "Франция"
-tb1.days = 6
-TravelBlog.total_blogs += 1
-tb2 = TravelBlog()
-tb2.name = "Италия"
-tb2.days = 5
-TravelBlog.total_blogs += 1
-#########################################################################################
-class Figure:
-    type_fig = 'ellipse'
-    color = 'red'
-
-
-fig1 = Figure()
-fig1.start_pt = (10, 5)
-fig1.end_pt = (100, 20)
-fig1.color = 'blue'
-delattr(fig1, 'color')
-
-# for key in fig1.__dict__:
-#     print(key, end=' ')
-#########################################################################################
-class Person:
-    name = 'Сергей Балакирев'
-    job = 'Программист'
-    city = 'Москва'
-
-
-p1 = Person()
-# print(True if p1.__dict__.get("job") else False)
-# print('job' in p1.__dict__)
-#########################################################################################
 import sys
 
 
@@ -149,26 +76,26 @@ tr.remove("car")
 #########################################################################################
 import random
 class Figure:
-    def __init__(self, a, b, c, d):
+    def __init__(self, a, b, c, d):  # Инициализация экземпляра класса Figure
         self.sp = a, b
         self.ep = c, d
 
+class Line(Figure):  # Класс Line наследует класс Figure
+    pass
+class Rect(Figure):  # Класс Rect наследует класс Figure
+    pass
+class Ellipse(Figure):  # Класс Ellipse наследует класс Figure
+    pass
 
-class Line(Figure):
-    pass
-class Rect(Figure):
-    pass
-class Ellipse(Figure):
-    pass
-def rnd_num():
+def rnd_num():  # Функц. rnd_num возвращает случайное число в пределах 0 - 9
     return random.randint(0, 9)
 
-
-obj_cls = [Line, Rect, Ellipse]
-elements = [random.choice(obj_cls)(rnd_num(), rnd_num(), rnd_num(), rnd_num()) for _ in range(217)]
+obj_cls = [Line, Rect, Ellipse]  # Переменная obj_cls ссылается на список экзепляров классов
+elements = [random.choice(obj_cls)(rnd_num(), rnd_num(), rnd_num(), rnd_num()) for _ in range(217)]  # создается список
+                            # elements из 217 случайных объектов с слуйчайными числами
 for obj in elements:
-    if isinstance(obj, Line):
-        setattr(obj, 'sp', (0, 0))
+    if isinstance(obj, Line):       # Проверяются все экземляры класса Line
+        setattr(obj, 'sp', (0, 0))   # устан. лок. св-ва sp и ep в нули экзмп. класса Line
         setattr(obj, 'ep', (0, 0))
 
 
