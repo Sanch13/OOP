@@ -203,3 +203,41 @@ class MotherBoard:
 
 mb = MotherBoard("ASUS", CPU("Intel", 3500), Memory("King", 1600), Memory("Cruser", 3200))
 #########################################################################################
+class Cart:
+    def __init__(self):  # Инициализация экземпляра класса Cart
+        self.goods = []  # Каждому экземпляру класса Cart будет создан пустой список
+
+    def add(self, gd):  # Добавление товара gd (объекта какого-ниб. класса) в список экземпляра класса Cart
+        self.goods.append(gd)
+
+    def remove(self, indx):  # Удаление товара (объекта) из списока
+        del self.goods[indx]    #  экземпляра класса Cart по индексу indx
+
+    def get_list(self):     # вывод лок. св-в объектов (товаров) из списка экземпляра класса Cart
+        return [f'{obj.name}: {obj.price}' for obj in self.goods]
+
+class Goods:
+    def __init__(self, name, price):  # Общий инициализатор для какого-ниб. товара
+        self.name = name
+        self.price = price
+
+class Table(Goods): pass    # класс Table наследуется у класса Goods. При создании объектов
+                            # класса Table используеться инициализатор класса Goods
+class TV(Goods): pass    # класс TV наследуется у класса Goods. При создании объектов
+                            # класса TV используеться инициализатор класса Goods
+class Notebook(Goods): pass    # класс Notebook наследуется у класса Goods. При создании объектов
+                            # класса Notebook используеться инициализатор класса Goods
+class Cup(Goods): pass    # класс Cup наследуется у класса Goods. При создании объектов
+                            # класса Cup используеться инициализатор класса Goods
+
+cart = Cart()   # Создание объекта cart. Init empty list
+cart.add(TV('LG', 500))   # Создание объекта TV и добавление его в список объекта cart
+cart.add(TV('Samsung', 1000))   # Создание объекта TV и добавление его в список объекта cart
+cart.add(Table('table', 200))   # Создание объекта Table и добавление его в список объекта cart
+cart.add(Notebook('Lenovo', 1500))   # Создание объекта Notebook и добавление его в список объекта cart
+cart.add(Notebook('Dell', 2500))   # Создание объекта Notebook и добавление его в список объекта cart
+cart.add(Cup('Tea', 30))   # Создание объекта Cup и добавление его в список объекта cart
+#########################################################################################
+
+
+
