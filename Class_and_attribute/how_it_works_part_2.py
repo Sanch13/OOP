@@ -160,15 +160,46 @@ class Graph:
     def set_show(self, fl_show):  # метод для изменения локального свойства is_show на переданное значение fl_show
         self.is_show = fl_show
 
-data_graph = list(map(int, input().split()))    # 8 11 10 -32 0 7 18
-gr = Graph(data_graph)
-gr.show_bar()
-gr.set_show(fl_show = False)
-gr.show_table()
+# data_graph = list(map(int, input().split()))    # 8 11 10 -32 0 7 18
+# gr = Graph(data_graph)
+# gr.show_bar()
+# gr.set_show(fl_show = False)
+# gr.show_table()
 # data = [1, 2, 3, 4]
 # gr2 = Graph(data)
 # gr3 = Graph(data)
 # gr3.data.append(5)
 # print(gr2.__dict__, gr3.__dict__, id(gr2) == id(gr3))
 #########################################################################################
+class CPU:
+    def __init__(self, name, fr):  # Инициализация экземпляра класса CPU
+        self.name = name
+        self.fr = fr
 
+
+class Memory:
+    def __init__(self, name, volume):  # Инициализация экземпляра класса Memory
+        self.name = name
+        self.volume = volume
+
+
+class MotherBoard:
+    def __init__(self, name, cpu, *memory):  # Инициализация экземпляра класса MotherBoard
+        self.name = name                     # *memory принимает кортеж объектов класса Memory
+        self.cpu = cpu  # здесь будет ссылка на объект класса CPU
+        self.total_mem_slots = 4
+        self.mem_slots = memory[:self.total_mem_slots]  # в лок. св-ве self.mem_slots устанавливаем ограничение
+    # в передаваемом кортеже *memory (объекты класса Memory) срезом по конечному индексу self.total_mem_slots
+
+    def get_config(self):   # Возвращает конфигурацию PC
+        return [f'Материнская плата: {self.name}',  # Выводит имя материнской платы
+                f'Центральный процессор: {self.cpu.name}, {self.cpu.fr}',   # обращаемся по ссылке cpu к лок.
+                                                                # св-ву name и fr класса CPU
+                f'Слотов памяти: {self.total_mem_slots}', # вывод лок. св-ва self.total_mem_slots  кол-во
+                                                        # слотов памяти MotherBoard
+                'Память: ' + '; '.join(map(lambda x: f"{x.name} - {x.volume}", self.mem_slots))]  # перебираем кортеж
+    # self.mem_slots (объекты класса Memory) и через аноним. функц. lambda выводим соответствующим образом
+    # лок. знач. name и volume объектов класса Memory
+
+mb = MotherBoard("ASUS", CPU("Intel", 3500), Memory("King", 1600), Memory("Cruser", 3200))
+#########################################################################################
