@@ -4,8 +4,9 @@ my_list = LinkedList()
 
 my_list.add_data(2)
 my_list.add_data(4)
+my_list.add_data(8)
 
 
-while None:
-    print('yes')
-print('No')
+
+my_list.show_data()
+print(my_list.get_data_for_indx(2))
