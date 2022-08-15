@@ -97,7 +97,43 @@ for obj in elements:
     if isinstance(obj, Line):       # Проверяются все экземляры класса Line
         setattr(obj, 'sp', (0, 0))   # устан. лок. св-ва sp и ep в нули экзмп. класса Line
         setattr(obj, 'ep', (0, 0))
+#########################################################################################
+class Graph:
+    def __init__(self, data, is_show=True):
+        self.data = ' '.join([str(i) for i in data])
+        self.is_show = is_show
 
+    def set_data(self, data):
+        self.data = data
+
+    def show_table(self):
+        if not self.is_show:
+            print(f'Отображение данных закрыто')
+        else:
+            print(self.data)
+
+    def show_graph(self):
+        if not self.is_show:
+            print(f'Отображение данных закрыто')
+        else:
+            print(f'Графическое отображение данных: {self.data}')
+
+    def show_bar(self):
+        if not self.is_show:
+            print(f'Отображение данных закрыто')
+        else:
+            print(f'Столбчатая диаграмма: {self.data}')
+
+    def set_show(self, fl_show):
+        self.is_show = fl_show
+
+
+data_graph = list(map(int, input().split()))    # 8 11 10 -32 0 7 18
+gr = Graph(data_graph)
+print(gr.__dict__)
+gr.show_bar()
+gr.set_show(fl_show=False)
+gr.show_table()
 
 
 
