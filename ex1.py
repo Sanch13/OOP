@@ -21,7 +21,6 @@
 # db.select(0, 1)
 from string import ascii_letters, digits
 
-
 # items = ascii_letters + digits + '@._'
 # print(len(items))
 # for k, v in enumerate(items):
@@ -54,6 +53,7 @@ from string import ascii_letters, digits
 # print(f'{part[1]= }', len(part[1]))
 from random import randint
 
+
 EMAIL_CHARS = ascii_letters + digits + '@._'
 EMAIL_RAND_CHARS = ascii_letters + digits + '_'
 
@@ -62,3 +62,5 @@ print(n)
 length = len(EMAIL_RAND_CHARS) - 1
 p = ''.join(EMAIL_RAND_CHARS[randint(0, length)] for _ in range(n)) + '@gmail.com'
 print(p)
+
+
