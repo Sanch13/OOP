@@ -90,14 +90,42 @@ html = login.render_template()  # в переменную html будем воз
     # self.login и self.login, а мы знаем что это ссылки на объекты других классов. Соответственно, он обратиться туда
     # к методам get_html(), а они вернут данные имени (self.name = Логина) и данные пароля (self.name = password).
     # Далее сформируется html код с данными. И они будут ссылать на переменную html. Всё!!!
-print(html)
+# print(html)
 ########################################################################################################################
+from string import ascii_lowercase, digits  # из модуля string импортируем прописные англ. алф. и цифры
 
 
+class CardCheck:
+    CHARS_FOR_NAME = ascii_lowercase.upper() + ' ' + digits  # атрибут класса CardCheck вкл. загл. буквы алф. + цифры
 
+    @staticmethod
+    def check_card_number(number):  # статит. метод. Возвращает True если данные number корректны
+        lst = number.split('-')  # разделяет строку на подстроки по разделителю '-'
+        items = digits + '-'     # лок. атрб. стат. метода вкл. цифры и дефис
+        if number.count('-') != 3:  # Возвращает кол-во '-' в number и сравнивает с 3. Если != 3 то метод вернет False
+            return False
 
+        if len(lst) != 4:  # Возвращает кол-во эл. lst и сравнивает с 4. Если != 4 то метод вернет False
+            return False
 
+        if not all(map(lambda x: len(x) == 4, lst)):  # Проверяет длину эл. lst и сравнивает с 4. Если не все эл. lst
+            return False                              # длиной == 4 то метод вернет False
 
+        return set(number) <= set(items)    # проверяем вхождение сета данных number с сетом разрешенных символов items
+                                            # если входит или равен тогда вернет True иначе вернет False
+
+    @classmethod
+    def check_name(cls, name):      # метод класса. Возвращает True если данные name корректны
+        if name.count(' ') != 1:    # Возвращает кол-во ' ' в name и сравнивает с 1. Если != 1 то метод вернет False
+            return False
+
+        if len(name.split()) != 2:  # Возвращает кол-во эл. name и сравнивает с 2. Если != 2 то метод вернет False
+            return False
+
+        return set(name) <= set(cls.CHARS_FOR_NAME)  # проверяем вхождение сета данных name с сетом разрешенных
+                                                     # символов обращаясь к атрибуту класса CardCheck cls.CHARS_FOR_NAME
+                                                     # если входит или равен тогда вернет True иначе вернет False
+########################################################################################################################
 
 
 
