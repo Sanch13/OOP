@@ -152,11 +152,42 @@ v1.create('Python')  # экз. класса Video создаем лок. св-в
 v2.create('Python ООП')  # экз. класса Video слздаем лок. св-во Python ООП
 YouTube.add_video(v1)  # добавляем экз. v1 класса Video в атрибут класса videos
 YouTube.add_video(v2)  # добавляем экз. v2 класса Video в атрибут класса videos
-YouTube.play(0)  # обрщаемся к атрибуту класса videos по индексу 0. экз. класса Video обращается к методу play()
-YouTube.play(1)  # обрщаемся к атрибуту класса videos по индексу 1. экз. класса Video обращается к методу play()
+# YouTube.play(0)  # обрщаемся к атрибуту класса videos по индексу 0. экз. класса Video обращается к методу play()
+# YouTube.play(1)  # обрщаемся к атрибуту класса videos по индексу 1. экз. класса Video обращается к методу play()
 ########################################################################################################################
+class AppStore:
+    def __init__(self):     # инициал. лок. св-тв объектов класса AppStore
+        self.dict_app = {}  # у экз. класса будет лок. св-во пустой словарь
 
+    def add_application(self, app):     # метод добавляет в лок. св-во экз. класса некий объект app
+        self.dict_app[id(app)] = app    # в виде ключа будет id(app), а значение сам объект app
 
+    def remove_application(self, app):  # метод удаляет объект app из в лок. св-во экз. класса
+        if id(app) in self.dict_app:    # если ключ id(app) есть в в лок. св-во экз. класса то удаляем по ключу
+            del self.dict_app[id(app)]
+
+    def block_application(self, app):               # метод меняет лок. св-во объекта класса Application
+        self.dict_app.get(id(app)).blocked = True   # по ключу id(app) обращаемся к объекту класса Application и
+                                                    # лок. св-ву меняем значение на True
+
+    def total_apps(self):  # метод возвращает кол-во объектов класса Application
+        return len(self.dict_app)
+
+class Application:
+    def __init__(self, name, blocked=False):  # инициал. лок. св-тв объектов класса Application
+        self.name = name
+        self.blocked = blocked
+
+# store = AppStore()
+# app_youtube = Application("Youtube")
+# app_twitch = Application("Twitch")
+# store.add_application(app_youtube)
+# store.add_application(app_twitch)
+# print(store.total_apps())
+# print(store.__dict__)
+# store.remove_application(app_youtube)
+# print(store.total_apps())
+########################################################################################################################
 
 
 
