@@ -188,14 +188,43 @@ class Application:
 # store.remove_application(app_youtube)
 # print(store.total_apps())
 ########################################################################################################################
+class Viber:
+    list_msg = []   # атрибут класса Viber
 
+    @classmethod
+    def add_message(cls, msg):    # метод добавляет некий объект msg
+        cls.list_msg.append(msg)  # метод добавляет некий объект msg в атрибут list_msg класса Viber
 
+    @classmethod
+    def remove_message(cls, msg):     # метод удаляет некий объект msg
+        if msg in cls.list_msg:       # если объект msg есть в атрибуте list_msg класса Viber
+            cls.list_msg.remove(msg)  # то удаляем его из list_msg по значению msg
 
+    @staticmethod
+    def set_like(msg):       # метод меняет лок. св-во объекта msg
+        msg.fl_like = False if msg.fl_like else True  # лок. св-ву fl_like объекта msg через терн. опер. уст. знач.
 
+    @classmethod
+    def show_last_message(cls, num):  # метод отображает послед. кол-во сообщ. из списка list_msg объектов msg
+        print([obj.text for obj in cls.list_msg[-num:]])    # проходим по списку list_msg. у каждого объекта msg
+                                                            # обращ. к лок. св-ву text (сообщение) и печатем его
+    @classmethod
+    def total_messages(cls):  # метод возвращает кол-во объектов msg из списка list_msg
+        return len(cls.list_msg)
 
+class Message:
+    def __init__(self, text, fl_like=False):     # инициал. лок. св-тв объектов класса Message
+        self.text = text
+        self.fl_like = fl_like
 
-
-
+# msg = Message("Всем привет!")
+# Viber.add_message(msg)
+# Viber.add_message(Message("Это курс по Python ООП."))
+# Viber.add_message(Message("Что вы о нем думаете?"))
+# Viber.set_like(msg)
+# Viber.remove_message(msg)
+# Viber.show_last_message(2)
+########################################################################################################################
 
 # print(bool(re.fullmatch('кот', 'кот-обормот')))  # Возвращает None если строки не равны. Завернуть в bool(None) return False
 # print(bool(re.fullmatch('кот', 'кот')))  # Return object <_sre.SRE_Match object; span=(0, 3), match='кот'>. Завернуть в bool(True) return True
