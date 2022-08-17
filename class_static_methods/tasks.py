@@ -126,9 +126,35 @@ class CardCheck:
                                                      # символов обращаясь к атрибуту класса CardCheck cls.CHARS_FOR_NAME
                                                      # если входит или равен тогда вернет True иначе вернет False
 ########################################################################################################################
+class Video:
 
+    def create(self, name):  # метод создает лок. св-во self.name экз. класса Video
+        self.name = name
 
+    def play(self):  # метод вопроизв. видео с названием self.name экз. класса Video
+        print(f'воспроизведение видео {self.name}')
 
+class YouTube:
+    videos = []  # атрибут класса YouTube. Будут хранится экз. класса Video
+
+    @classmethod
+    def add_video(cls, video):  # метод добавляет в атрибут класса videos экз. класса Video
+        cls.videos.append(video)
+
+    @classmethod
+    def play(cls, video_indx):  # метод обрщается к атрибуту класса videos по индексу video_indx.
+        cls.videos[video_indx].play()  # Так как там экз. класса Video он обращается к методу play() класса Video
+                                       # а он вопроизв. видео с названием self.name
+
+v1 = Video()  # создаем экз. класса Video
+v2 = Video()  # создаем экз. класса Video
+v1.create('Python')  # экз. класса Video создаем лок. св-во Python
+v2.create('Python ООП')  # экз. класса Video слздаем лок. св-во Python ООП
+YouTube.add_video(v1)  # добавляем экз. v1 класса Video в атрибут класса videos
+YouTube.add_video(v2)  # добавляем экз. v2 класса Video в атрибут класса videos
+YouTube.play(0)  # обрщаемся к атрибуту класса videos по индексу 0. экз. класса Video обращается к методу play()
+YouTube.play(1)  # обрщаемся к атрибуту класса videos по индексу 1. экз. класса Video обращается к методу play()
+########################################################################################################################
 
 
 
