@@ -137,26 +137,19 @@ class LinkedList:
         self.tail = tail
 
     def add_obj(self, obj):
-        new_obj = obj
-        cur_obj = self.head
-        if cur_obj is None:
-            self.head = new_obj
-            self.tail = new_obj
+        if self.head is None:
+            self.head = self.tail =obj
             return
-        while cur_obj.get_next():
-            cur_obj = cur_obj.get_next()
-        cur_obj.set_next(new_obj)
-        new_obj.set_prev(cur_obj)
-        self.tail = new_obj
-
+        self.tail.set_next(obj)
+        obj.set_prev(self.tail)
+        self.tail = obj
 
     def remove_obj(self):
-        cur_obj = self.head
-        while cur_obj.get_next():
-            cur_obj = cur_obj.get_next()
-        pre_obj = cur_obj.get_prev()
-        pre_obj.set_next(None)
-        self.tail = pre_obj
+        if self.head.get_next() is None:
+            self.head = self.tail = None
+            return
+        self.tail = self.tail.get_prev()
+        self.tail.set_next(None)
 
     def get_data(self):
         cur_obj = self.head
@@ -168,8 +161,7 @@ class LinkedList:
 
 class ObjList:
     def __init__(self, data):
-        self.__next = None
-        self.__prev = None
+        self.__next = self.__prev = None
         self.set_data(data)
 
     def set_next(self, obj):
@@ -194,6 +186,6 @@ lst = LinkedList()
 lst.add_obj(ObjList("данные 1"))
 lst.add_obj(ObjList("данные 2"))
 lst.add_obj(ObjList("данные 3"))
+lst.remove_obj()
 res = lst.get_data()    # ['данные 1', 'данные 2', 'данные 3']
 print(res)
-
