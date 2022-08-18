@@ -132,13 +132,14 @@ rect = Rectangle(Point(0, 0), Point(20, 34))
 # rect.draw()
 #######################################################################################################################
 class LinkedList:
+
     def __init__(self, head=None, tail=None):
         self.head = head
         self.tail = tail
 
     def add_obj(self, obj):
         if self.head is None:
-            self.head = self.tail =obj
+            self.head = self.tail = obj
             return
         self.tail.set_next(obj)
         obj.set_prev(self.tail)
