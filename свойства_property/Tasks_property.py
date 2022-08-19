@@ -12,7 +12,7 @@ class Car:
     MAX = 101   # атрибут класса. макс. критерий
 
     def __init__(self, model=None):  # Инициал. лок. св-в экз. класса Car
-        self.model(model)      # Инициал. лок. св-в экз. класса
+        self.__model = model            # Инициал. приватной лок. св-в экз. класса
 
     @property           # объект св-во
     def model(self):    # геттер. Возвращает приватное лок. св-во экз. класса
@@ -28,3 +28,44 @@ class Car:
         """Метод проверят, что модель автомобиля - это строка; длина строки модели должна быть в диапазоне [2; 100]"""
         return isinstance(value, str) and cls.MIN < len(value) < cls.MAX
 #######################################################################################################################
+class WindowDlg:
+    MIN = -1        # атрибут класса. миним. критерий
+    MAX = 10_001    # атрибут класса. макс. критерий
+
+    def __init__(self, title, width, height):  # Инициал. лок. св-в экз. класса WindowDlg
+        self.__title = title                   # Инициал. приват. лок. св-ва экз. класса
+        if self.__check_size_side(width):      # метод вернет True если value явл. целым числом в диапазоне [0; 10000]
+            self.__width = width               # Инициал. приват. лок. св-ва экз. класса
+        if self.__check_size_side(height):     # метод вернет True если value явл. целым числом в диапазоне [0; 10000]
+            self.__height = height             # Инициал. приват. лок. св-ва экз. класса
+
+    @property           # объект св-во
+    def width(self):    # геттер. Возвращает приватное лок. св-во экз. класса
+        return self.__width
+
+    @width.setter
+    def width(self, value):   # через сеттер width устанавливаем приватное лок. св-ва self.__width экз. класса
+        if self.__width != value:   # Если предыдущ. знач. равно value то False и ничего не делаем, если предыдущ. знач.
+            if self.__check_size_side(value):  # не равно value то провер. value методом __check_size_side
+                self.__width = value           # Инициал. приват. лок. св-ва экз. класса
+                self.show()                    # отображаем на экране строку с измененными данными
+
+    @property            # объект св-во
+    def height(self):    # геттер. Возвращает приватное лок. св-во экз. класса
+        return self.__height
+
+    @height.setter
+    def height(self, value):   # через сеттер height устанавливаем приватное лок. св-ва self.__height экз. класса
+        if self.__height != value:  # Если предыдущ. знач. равно value то False и ничего не делаем, если предыдущ. знач.
+            if self.__check_size_side(value):  # не равно value то провер. value методом __check_size_side
+                self.__height = value           # Инициал. приват. лок. св-ва экз. класса
+                self.show()                     # отображаем на экране строку с измененными данными
+
+    @classmethod
+    def __check_size_side(cls, value):  # метод вернет True если value явл. целым числом в диапазоне [0; 10000]
+        return isinstance(value, int) and cls.MIN < value < cls.MAX  # иначе False
+
+    def show(self):  # отображает на экране строку в формате "Окно : 100, 50"
+        return f"{self.__title}: {self.width}, {self.height}"
+#######################################################################################################################
+
