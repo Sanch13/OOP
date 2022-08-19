@@ -192,10 +192,63 @@ class ObjList:
     def get_data(self):  # геттер. Возвращает приватное лок. св-во экз. класса
         return self.__data
 
-lst = LinkedList()
-lst.add_obj(ObjList("данные 1"))
-lst.add_obj(ObjList("данные 2"))
-lst.add_obj(ObjList("данные 3"))
-lst.remove_last_obj()
-res = lst.get_data()    # ['данные 1', 'данные 2', 'данные 3']
-print(res)
+# lst = LinkedList()
+# lst.add_obj(ObjList("данные 1"))
+# lst.add_obj(ObjList("данные 2"))
+# lst.add_obj(ObjList("данные 3"))
+# lst.remove_last_obj()
+# res = lst.get_data()    # ['данные 1', 'данные 2', 'данные 3']
+# print(res)
+#######################################################################################################################
+from string import ascii_letters, digits    # импортируем из модуля латин. алф. и цифры
+from random import choice    # импортируем из модуля random функц. choice. Из последов. выбирает случ. 1 элемент
+
+class EmailValidator:
+    CHARS_CORRECT = ascii_letters + digits + '_.@'  # атрибут класса. набор корректных символов
+    CHARS_CORRECT_RAND = CHARS_CORRECT[:-1]  # атрибут класса. набор корректных символов для случ. созд. email
+    PART_1 = 100  # атрибут класса. разрешенное кол-во символов до знака @
+    PART_2 = 50  # атрибут класса. разрешенное кол-во символов после знака @
+    TAIL = "@gmail.com"  # атрибут класса. Хвост email. Будем его добавлять к сгенирированному значению
+
+    def __new__(cls, *args, **kwargs):  # Переопределяем маг. метод __new__. Запрещаем создовать объекты
+        return None                     # класса EmailValidator. При попытке создания объекта, метод вернет None
+
+    @classmethod
+    def get_random_email(cls):  # метод генерирует email по формату: xxxxxxx...xxx@gmail.com
+        """Генерирует случайный email-адреса по формату: xxxxxxx...xxx@gmail.com"""
+        email = ''.join(choice(cls.CHARS_CORRECT_RAND) for _ in range(20)) + cls.TAIL   # генерируем 20 корректных
+                                                # символов из cls.CHARS_CORRECT_RAND и добавляем хвост email
+        return email if cls.check_email(email) else cls.get_random_email()  # Вернет email если корректно создан иначе
+                                                                            # снова сгенерировать email (рекурсия)
+
+    @classmethod
+    def check_email(cls, email):    # метод вернет True, если email коректен иначе вернет False
+        """Возвращает True, если email записан верно и False - в противном случае"""
+        if not cls.__is_email_str(email):   # Проверяет тип  email, если строка, то вернет True, иначе - False
+            return False    # Если email не сторка вернет False
+
+        if not set(email) <= set(cls.CHARS_CORRECT):  # проверка корр. символов в email через сравнения наборов (set)
+            return False  # если сет email не входит или равен сету корректных символов то метод вернет False
+
+        parts = email.split('@')    # лок. перем. разбиваем email по '@'. получается список parts
+
+        if len(parts) != 2:  # в email может быть только одна '@'. получается список parts должен состоять из 2 частей
+            return False     # Вернет False если '@' нет или более одной
+
+        if not parts[1].count(".") or email.count('..'):  # проверяем кол-во "." после '@'. если 0 то вернет False
+            return False                            # проверяем кол-во ".." в email. если присутствует то вернет False
+
+        if not (len(parts[0]) <= cls.PART_1 and len(parts[1]) <= cls.PART_2):  # проверяем кол-во элем. до '@' и после
+            return False                        # если кол-во не корректно то вернет False
+
+        return True
+
+    @staticmethod
+    def __is_email_str(email):  # метод вернет True если email строка, иначе - False
+        """Проверяет тип переменной email, если строка, то возвращается значение True, иначе - False"""
+        return type(email) == str  # Вернет True если email строка, иначе - False
+
+
+
+em = EmailValidator()  # None
+print(EmailValidator.get_random_email())
