@@ -305,6 +305,51 @@ def pprint():
 
 # pprint()  # [11, 22, 33, 44, 55]
 #####################################################################################################################
+class PhoneNumber:
+    alphabet = "абвгдеёжзийклмнопрстуфхцчшщьыъэюя "
+    CHARS = alphabet + alphabet.upper()
 
+    def __init__(self, number, fio):  # Инициал. лок. св-в экз. класса PhoneNumber
+        if self.__check_number(number) and self.__check_fio(fio):   # Проверка, что number число, а fio строка
+            self.number = number
+            self.fio = fio
+        else:
+            raise TypeError('Введены некорректные данные')
+
+    @staticmethod
+    def __check_number(x):
+        """Возвращает True если х число и длина его равна 11"""
+        return type(x) is int and len(str(x)) == 11
+
+    @classmethod
+    def __check_fio(cls, fio):
+        """Вернет True если fio из рус. алфавита"""
+        return set(fio) <= set(cls.CHARS)
+
+
+class PhoneBook:
+
+    def __init__(self):
+        self.list_phone = []
+
+    def add_phone(self, phone):
+        """Добавляет объект класса PhoneNumber в лок. св-во self.list_phone класса PhoneBook"""
+        self.list_phone.append(phone)
+
+    def remove_phone(self, indx):
+        """Удаляет объект класса PhoneNumber по индексу из лок. св-во self.list_phone класса PhoneBook"""
+        del self.list_phone[indx]
+
+    def get_phone_list(self):
+        """Возвращает номера объектов класса PhoneNumber из лок. св-во self.list_phone класса PhoneBook"""
+        return [obj.number for obj in self.list_phone]
+
+
+p = PhoneBook()
+p.add_phone(PhoneNumber(12345678901, "Сергей Балакирев"))
+p.add_phone(PhoneNumber(21345678901, "Панда"))
+phones = p.get_phone_list()
+print(phones)
+#####################################################################################################################
 
 
