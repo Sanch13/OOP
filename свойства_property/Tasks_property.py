@@ -276,18 +276,35 @@ class PathLines:
         return ((p_1.x - p_0.x) ** 2 + (p_1.y - p_0.y) ** 2) ** 0.5
 
 
-p = PathLines(LineTo(1, 2))
-print(p.get_length())  # 2.23606797749979
-p.add_line(LineTo(10, 20))
-p.add_line(LineTo(5, 17))
-print(p.get_length())  # 28.191631669843197
-m = p.get_path()
-print(all(isinstance(i, LineTo) for i in m) and len(m) == 3)  # True
-
-h = PathLines(LineTo(4, 8), LineTo(-10, 30), LineTo(14, 2))
-print(h.get_length())  # 71.8992593599813
-
-k = PathLines()
-print(k.get_length())  # 0
-print(k.get_path())  #[]
+# p = PathLines(LineTo(1, 2))
+# print(p.get_length())  # 2.23606797749979
+# p.add_line(LineTo(10, 20))
+# p.add_line(LineTo(5, 17))
+# print(p.get_length())  # 28.191631669843197
+# m = p.get_path()
+# print(all(isinstance(i, LineTo) for i in m) and len(m) == 3)  # True
+#
+# h = PathLines(LineTo(4, 8), LineTo(-10, 30), LineTo(14, 2))
+# print(h.get_length())  # 71.8992593599813
+#
+# k = PathLines()
+# print(k.get_length())  # 0
+# print(k.get_path())  #[]
 #####################################################################################################################
+a = [1, 2, 3, 4, 5]
+b = [10, 20, 30, 40, 50, 60, 70, 80, 90]
+
+
+def add(num_1, num_2):
+    return num_1 + num_2
+
+
+def pprint():
+    out = list(map(add, a, b))  # map(func, iter, iter) выполняется по наименьшему iter
+    print(out)
+
+# pprint()  # [11, 22, 33, 44, 55]
+#####################################################################################################################
+
+
+
