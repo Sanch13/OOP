@@ -139,7 +139,7 @@ st.push(StackObj("obj1"))
 st.push(StackObj("obj2"))
 st.push(StackObj("obj3"))
 st.pop()
-res = st.get_data()    # ['obj1', 'obj2']
+# res = st.get_data()    # ['obj1', 'obj2']
 #######################################################################################################################
 class RadiusVector2D:
 
@@ -178,5 +178,58 @@ class RadiusVector2D:
         """метод вычисляет квадратическую норму (квадратическая норма вектора: x*x + y*y)."""
         return vector.x ** 2 + vector.y ** 2
 #####################################################################################################################
-class Test:
-    pass
+class TreeObj:
+
+    def __init__(self, indx, value=None):  # Инициал. лок. св-в экз. класса TreeObj
+        self.indx = indx                   # Инициал. лок. св-в экз. класса TreeObj
+        self.value = value                 # Инициал. лок. св-в экз. класса TreeObj
+        self.left = self.right = None      # Инициал. лок. св-в экз. класса TreeObj. По умолчанию None
+
+    @property
+    def left(self):          # объект св-во
+        return self.__left   # Геттер. Возвращает приват. лок. св-во экз. класса
+
+    @left.setter
+    def left(self, obj):     # Через сеттер left уст. приват. лок. Св-во self.__left = obj экз. класса
+        self.__left = obj
+
+    @property
+    def right(self):         # объект св-во
+        return self.__right  # Геттер. Возвращает приват. лок. св-во экз. класса
+
+    @right.setter
+    def right(self, obj):    # через сеттер right уст. приват. лок. св-во self.__right = obj экз. класса
+        self.__right = obj
+
+class DecisionTree:
+
+    @classmethod
+    def predict(cls, root, x):
+        """Метод проходит по решающему дереву для вектора x из корневого узла дерева root и возвращает конеч. знач."""
+        pointer = root  # pointer ссылается на первый узел дерева (вершина)
+        while pointer.left or pointer.right:  # в цикле while смотрим на что указ. лок. св-ва pointer. None или объект.
+            pointer = pointer.left if x[pointer.indx] else pointer.right  # ссылаем pointer на new obj. (left or right)
+
+        return pointer.value    # Возвращаем значение объекта на что указывает pointer
+
+    @classmethod
+    def add_obj(cls, obj, node=None, left=True):
+        """Метод добавляет объект в решающее дерево и возвращает добавленную вершину - объект класса TreeObj"""
+        if node:        # Если node==None, то вернет объект иначе, будут пров. следующ. условие.
+            setattr(node, 'left' if left else 'right', obj)  # Если left==True, то к переданному объекту node через
+                                    # объект св-во left указ. ссылку на новый obj иначе через объект св-во right
+        return obj  # возвращаем добавленную вершину - объект класса TreeObj
+
+
+# root = DecisionTree.add_obj(TreeObj(0))  # Добавление вершины решающего дерева
+# v_11 = DecisionTree.add_obj(TreeObj(1), root)  # Добавление левого элемента к вершине решающего дерева
+# v_12 = DecisionTree.add_obj(TreeObj(2), root, False)  # Добавление правого элемента к вершине решающего дерева
+# DecisionTree.add_obj(TreeObj(-1, "будет программистом"), v_11)  # Добавление левого листового элем. к v_11
+# DecisionTree.add_obj(TreeObj(-1, "будет кодером"), v_11, False)  # Добавление правого листового элем. к v_11
+# DecisionTree.add_obj(TreeObj(-1, "не все потеряно"), v_12)  # Добавление левого листового элем. к v_12
+# DecisionTree.add_obj(TreeObj(-1, "безнадежен"), v_12, False)  # Добавление правого листового элем. к v_12
+#
+# x = [1, 1, 0]   # вектор х с бинарными значениями
+# res = DecisionTree.predict(root,  x)  # вернет значение - будет программистом
+# print(res)  # выведет в консоль будет программистом
+#####################################################################################################################
