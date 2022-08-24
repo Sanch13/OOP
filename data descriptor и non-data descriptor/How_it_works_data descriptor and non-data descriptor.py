@@ -6,8 +6,8 @@ class ReadIntX:  # non-data descriptor
     def __get__(self, instance, owner):
         return getattr(instance, self.name)
 
-    def __set__(self, instance, value):  # станет data descriptor если раcкоментировать
-        setattr(instance, self.name, value)
+    # def __set__(self, instance, value):  # станет data descriptor если раcкоментировать
+    #     setattr(instance, self.name, value)
 
 
 class Integer:  # data descriptor
@@ -69,5 +69,5 @@ print(pt.xr)  # считывания локального атрибута _x = 
 print(pt.__dict__)
 pt.xr = 8  # В экземпляре pt будет создано новое лок. свойство с именем xr и ссылаться он будет на заданное значение.
 print(pt.xr, pt.__dict__)
-pt.__dict__['xr'] = 5
-print(pt.xr, pt.__dict__)
+# pt.__dict__['xr'] = 5
+# print(pt.xr, pt.__dict__)
