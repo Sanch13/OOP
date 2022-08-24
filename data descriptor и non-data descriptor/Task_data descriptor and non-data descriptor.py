@@ -166,9 +166,68 @@ class SuperShop:
             self.goods.remove(product)
 
 
-shop = SuperShop("У Балакирева")
-shop.add_product(Product("Mark", 100))
-shop.add_product(Product("name", 10_000))
-for p in shop.goods:
-    print(f"{p.name}: {p.price}")
+# shop = SuperShop("У Балакирева")
+# shop.add_product(Product("Mark", 100))
+# shop.add_product(Product("name", 10_000))
+# for p in shop.goods:
+#     print(f"{p.name}: {p.price}")
 ############################################################################################################
+
+
+class Bag:
+
+    def __init__(self, max_weight):  # Инициал. лок. св-в экз. класса Bag
+        self.max_weight = max_weight
+        self.__things = []
+
+    @property           # объект св-во
+    def things(self):   # геттер. Возвращает приватное лок. св-во экз. класса
+        return self.__things
+
+    def add_thing(self, thing):
+        """Добавление нового предмета в рюкзак"""
+        if thing.weight + self.get_total_weight() <= self.max_weight:   # Если общ. масса вещей не превыш.
+            self.__things.append(thing)                                 # макс. знач. то доб. вещь в список
+
+    def remove_thing(self, indx):
+        """Удаление предмета по индексу списка"""
+        if indx <= len(self.things):    # если indx (число) не больше или равно кол-ву объектов списка то
+            self.__things.remove(indx)  # удаляем объект из списка по указанному indx
+
+    def get_total_weight(self):
+        """Возвращает суммарный вес предметов в рюкзаке"""
+        return sum(obj.weight for obj in self.things)   # прох. по списку вещей и возвр. общую массу вещей
+
+
+class Thing:
+
+    def __init__(self, name, weight):                         # Инициал. лок. св-в экз. класса Bag
+        if not self.__check_value_str(name):                  # Проверка, что name строка
+            raise ValueError("некорректное значение name")    # Если name не строка просто выходим
+        self.name = name                                      # Инициал. лок. св-в экз. класса
+        if not self.__check_value(weight):                    # Пров., что weight явл. (int, float)). Если
+            raise ValueError("некорректное значение weight")  # weight не явл. (int, float)) просто выходим
+        self.weight = weight                                  # Инициал. лок. св-в экз. класса
+
+    @staticmethod
+    def __check_value_str(value):
+        """Вернет True если value тип str"""
+        return isinstance(value, str)
+
+    @staticmethod
+    def __check_value(value):
+        """Вернет True если value тип int или float"""
+        return isinstance(value, (int, float))
+
+
+# bag = Bag(1000)
+# bag.add_thing(Thing("Книга по Python", 100))
+# bag.add_thing(Thing("Котелок", 500))
+# bag.add_thing(Thing("Спички", 20))
+# bag.add_thing(Thing("Бумага", 100))
+# bag.add_thing(Thing("Палатка", 280))
+# w = bag.get_total_weight()
+# for t in bag.things:
+#     print(f"{t.name}: {t.weight}")
+###################################################################################################
+
