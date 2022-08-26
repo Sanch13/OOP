@@ -161,9 +161,9 @@ class LessonItem:
 
     @classmethod
     def check_key_value(cls, key, value) -> bool:
-        if cls.attr[key] != type(value):
+        if cls.attr[key] is not type(value):
             return True
-        elif type(value) == int and value < 0:
+        elif isinstance(value, int) and value < 0:
             return True
         return False
 
