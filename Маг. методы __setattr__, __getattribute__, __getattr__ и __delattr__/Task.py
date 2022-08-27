@@ -192,9 +192,53 @@ mus.add_exhibit(Picture("Балакирев с подписчиками пише
 mus.add_exhibit(Mummies("Балакирев", "Древняя Россия", "Просветитель XXI века, удостоенный мумификации"))
 p = Papyri("Ученья для, не злата ради", "Древняя Россия", "Самое древнее найденное рукописное свидетельство о языках программирования")
 mus.add_exhibit(p)
-print(mus.__dict__)
-for x in mus.exhibits:
-    print(x.descr)
+# print(mus.__dict__)
+# for x in mus.exhibits:
+#     print(x.descr)
 ##################################################################################################
+
+
+class SmartPhone:
+
+    def __init__(self, model):
+        self.model = model
+        self.apps = []
+
+    def add_app(self, app):
+        if type(app) not in map(type, self.apps):
+            self.apps.append(app)
+
+    def remove_app(self, app):
+        self.apps.remove(app)
+
+
+class AppVK:
+    def __init__(self):
+        self.name = "ВКонтакте"
+
+
+class AppYouTube:
+    def __init__(self, memory: int):
+        self.name = "YouTube"
+        self.memory_max = memory
+
+
+class AppPhone:
+    def __init__(self, phone_list: dict):
+        self.name = "Phone"
+        self.phone_list = phone_list
+
+
+app_1 = AppYouTube(1024)
+app_2 = AppYouTube(1024)
+sm = SmartPhone("Honor 1.0")
+sm.add_app(app_1)
+sm.add_app(app_2)  # второй раз добавляться не должно
+sm.add_app(AppVK())
+sm.add_app(AppVK())
+print(len(sm.apps))
+for a in sm.apps:
+    print(a.name)
+    ##################################################################################################
 
 
