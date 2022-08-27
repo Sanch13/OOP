@@ -207,20 +207,66 @@ class Course:
             del self.modules[indx - 1]
 
 
-course = Course("Python ООП")
-module_1 = Module("Часть первая")
-module_1.add_lesson(LessonItem("Урок 1", 7, 1000))
-module_1.add_lesson(LessonItem("Урок 2", 10, 1200))
-module_1.add_lesson(LessonItem("Урок 3", 5, 800))
-print(module_1.__dict__)
-course.add_module(module_1)
-module_2 = Module("Часть вторая")
-module_2.add_lesson(LessonItem("Урок 1", 7, 1000))
-module_2.add_lesson(LessonItem("Урок 2", 10, 1200))
-course.add_module(module_2)
-module_1.remove_lesson(1)
-print(module_1.__dict__)
+# course = Course("Python ООП")
+# module_1 = Module("Часть первая")
+# module_1.add_lesson(LessonItem("Урок 1", 7, 1000))
+# module_1.add_lesson(LessonItem("Урок 2", 10, 1200))
+# module_1.add_lesson(LessonItem("Урок 3", 5, 800))
+# print(module_1.__dict__)
+# course.add_module(module_1)
+# module_2 = Module("Часть вторая")
+# module_2.add_lesson(LessonItem("Урок 1", 7, 1000))
+# module_2.add_lesson(LessonItem("Урок 2", 10, 1200))
+# course.add_module(module_2)
+# module_1.remove_lesson(1)
+# print(module_1.__dict__)
 ##################################################################################################
 
+
+class Picture:
+    def __init__(self, name, author, descr):
+        self.name = name
+        self.author = author
+        self.descr = descr
+
+
+class Mummies:
+    def __init__(self, name, author, descr):
+        self.name = name
+        self.author = author
+        self.descr = descr
+
+
+class Papyri:
+    def __init__(self, name, date, descr):
+        self.name = name
+        self.date = date
+        self.descr = descr
+
+
+class Museum:
+    def __init__(self, name):
+        self.name = name
+        self.exhibits = []
+
+    def add_exhibit(self, obj):
+        self.exhibits.append(obj)
+
+    def remove_exhibit(self, obj):
+        self.exhibits.remove(obj)
+
+    def get_info_exhibit(self, indx):
+        return f"Описание экспоната {self.exhibits[indx].name}: {self.exhibits[indx].descr}"
+
+
+mus = Museum("Эрмитаж")
+mus.add_exhibit(Picture("Балакирев с подписчиками пишет письмо иноземному султану", "Неизвестный автор", "Вдохновляющая, устрашающая, волнующая картина"))
+mus.add_exhibit(Mummies("Балакирев", "Древняя Россия", "Просветитель XXI века, удостоенный мумификации"))
+p = Papyri("Ученья для, не злата ради", "Древняя Россия", "Самое древнее найденное рукописное свидетельство о языках программирования")
+mus.add_exhibit(p)
+print(mus.__dict__)
+for x in mus.exhibits:
+    print(x.descr)
+##################################################################################################
 
 
