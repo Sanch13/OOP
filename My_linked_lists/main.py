@@ -1,4 +1,4 @@
-from My_single_linked_list.Linked_list import LinkedList
+from My_linked_lists.Single_linked_list import LinkedList
 
 my_list = LinkedList()
 

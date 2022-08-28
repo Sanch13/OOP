@@ -1,4 +1,4 @@
-from My_single_linked_list.Node import Node  # импортируем класс Node
+from My_linked_lists.Node import Node  # импортируем класс Node
 
 
 class LinkedList:
