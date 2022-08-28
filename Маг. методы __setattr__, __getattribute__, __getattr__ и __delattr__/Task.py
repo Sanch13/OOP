@@ -229,16 +229,67 @@ class AppPhone:
         self.phone_list = phone_list
 
 
-app_1 = AppYouTube(1024)
-app_2 = AppYouTube(1024)
-sm = SmartPhone("Honor 1.0")
-sm.add_app(app_1)
-sm.add_app(app_2)  # второй раз добавляться не должно
-sm.add_app(AppVK())
-sm.add_app(AppVK())
-print(len(sm.apps))
-for a in sm.apps:
-    print(a.name)
-    ##################################################################################################
+# app_1 = AppYouTube(1024)
+# app_2 = AppYouTube(1024)
+# sm = SmartPhone("Honor 1.0")
+# sm.add_app(app_1)
+# sm.add_app(app_2)  # второй раз добавляться не должно
+# sm.add_app(AppVK())
+# sm.add_app(AppVK())
+# print(len(sm.apps))
+# for a in sm.apps:
+#     print(a.name)
+##################################################################################################
+
+
+class Circle:
+    def __init__(self, x, y, radius):  # Инициал. лок. св-в экз. кл. Circle
+        self.__x = x
+        self.__y = y
+        self.__radius = radius
+
+    @property
+    def x(self):
+        return self.__x
+
+    @x.setter
+    def x(self, value):
+        self.__x = value
+
+    @property
+    def y(self):
+        return self.__y
+
+    @y.setter
+    def y(self, value):
+        self.__y = value
+
+    @property
+    def radius(self):
+        return self.__radius
+
+    @radius.setter
+    def radius(self, value):
+        self.__radius = value
+
+    def __setattr__(self, key, value):  # проверяем value явл. (int, float) и больше 0
+        if isinstance(value, (int, float)) and value > 0:
+            super().__setattr__(key, value)   # вызов базового класса с передачей параметров
+        elif isinstance(value, str):  # проверяем value явл. (str). Вызыв. исключение
+            raise TypeError("Неверный тип присваиваемых данных.")
+
+    def __getattr__(self, item):  # Если в лок. коллекции экз. класса нет item вернем False
+        return False
+
+
+circle = Circle(10.5, 7, 22)
+print(circle.__dict__)
+circle.radius = -10 # прежнее значение не должно меняться, т.к. отрицательный радиус недопустим
+print(circle.__dict__)
+x, y = circle.x, circle.y
+res = circle.name # False, т.к. атрибут name не существует
+print(res)
+##################################################################################################
+
 
 
