@@ -21,3 +21,26 @@ lst_pass = [rnd() for _ in range(3)]    # созд. список из функт
 ###################################################################################################
 
 
+class ImageFileAcceptor:
+    def __init__(self, extensions):     # Инициал. лок. св-тв экз. класса
+        self.__extensions = extensions  # Инициал. лок. св-тв экз. класса
+
+    def __call__(self, file, *args, **kwargs):    # изм. поведение для функторов экз. класса
+        return file.split('.')[-1] in self.__extensions  # Вернет True если переданный пар-тр
+        # на вход функтура (например acceptor("boat.jpg")) после точки входит в перечень
+        # допустимых расширений self.__extensions
+
+
+# filenames = ["boat.jpg", "web.png", "text.txt", "python.doc", "ava.8.jpg",
+#              "forest.jpeg", "eq_1.png", "eq_2.png", "my.html", "data.shtml"]  # Спис. для фильтра
+# acceptor = ImageFileAcceptor(('jpg', 'bmp', 'jpeg'))    # Создаем в объекте лок. св-во с
+# # разрешенными расширениями.
+#
+# image_filenames = filter(acceptor, filenames)   # Записываем в переменную истинные значения.
+# # Используем станд. функцию filter. Вызывая функтор acceptor() и поочередно передавая значения
+# # последовательности filenames. Отфильтрует корректные значения.
+#
+# print(list(image_filenames))  # ["boat.jpg", "ava.jpg", "forest.jpeg"
+###################################################################################################
+
+
