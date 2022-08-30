@@ -86,7 +86,7 @@ class CharsValidator:
 
 
 class DigitRetrieve:
-    def __call__(self, *args, **kwargs):
+    def __call__(self, *args, **kwargs):    # изм. поведение для функторов экз. класса
         try:
             return int(args[0])
         except ValueError:
@@ -100,5 +100,19 @@ class DigitRetrieve:
 ###################################################################################################
 
 
+class RenderList:
+    def __init__(self, tag):
+        self.tag = tag if tag in ('ul', 'ol') else 'ul'
+
+    def __call__(self, *args, **kwargs):    # изм. поведение для функторов экз. класса
+        res = ''.join(f'<li>{el}</li>\n' for el in args[0])  # Сформир. список из вход. аргум.
+        return f'<{self.tag}>\n{res}</{self.tag}>'  # Вернем сформир. строку html
+
+
+# lst = ["Пункт меню 1", "Пункт меню 2", "Пункт меню 3", "Пункт меню 4", "Пункт меню 5"]
+# render = RenderList("ol")
+# html = render(lst)
+# print(html)
+###################################################################################################
 
 
