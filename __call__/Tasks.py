@@ -93,10 +93,11 @@ class DigitRetrieve:
             return None
 
 
-dg = DigitRetrieve()
-st = ["123", "abc", "-56.4", "0", "-5"]
-digits_1 = list(map(dg, st))  # [123, None, None, 0, -5]
-print(digits_1)
+# dg = DigitRetrieve()
+# st = ["123", "abc", "-56.4", "0", "-5"]
+# digits_1 = list(map(dg, st))  # [123, None, None, 0, -5]
+# print(digits_1)
+###################################################################################################
 
 
 
