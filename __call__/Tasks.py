@@ -116,3 +116,29 @@ class RenderList:
 ###################################################################################################
 
 
+class HandlerGET:
+    def __init__(self,  func):
+        self.__fn = func            # Здесь в иниц. сохр. ссылку на функцию, которую декорируем
+
+    def __call__(self, *args, **kwargs):
+        return self.get(self.__fn, args[0])         # Возвращ. возвращаемое значение фун. get.
+
+    def get(self, func, request, *args, **kwargs):  # Возвращает "GET: <данные из декор. фун.>"
+        if request.get("method") in ("GET", None):  # func - ссылка на декор. фун.
+            return f'GET: {func(request)}'          # Если в словаре request ключ {"method": 'GET'}
+                                                    # или вовсе нет ключа возвращаем строку
+        return None                                 # иначе возвращаем None
+
+@HandlerGET
+def contact(request):
+    return "Сергей Балакирев"
+
+
+res = contact({"method": 'GET', "url": "contact.html"})
+print(res)
+
+###################################################################################################
+
+
+
+
