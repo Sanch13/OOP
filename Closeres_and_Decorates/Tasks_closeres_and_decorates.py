@@ -122,21 +122,54 @@ list
 Sample Output:
 [-5, 6, 8, 11, 0, 111, -456, 3]
 """
-tp = input()
-sequence_num = map(int, input().split())
-
-
-def add_type(tp):
-    def print_sequence(sequence):
-        nonlocal tp
-        return tuple(sequence) if tp != 'list' else list(sequence)
-
-    return print_sequence
-
-
-lst = add_type(tp)(sequence_num)
-print(lst)
+# tp = input()
+# sequence_num = map(int, input().split())
+#
+#
+# def add_type(tp):
+#     def print_sequence(sequence):
+#         nonlocal tp
+#         return tuple(sequence) if tp != 'list' else list(sequence)
+#
+#     return print_sequence
+#
+#
+# lst = add_type(tp)(sequence_num)
+# print(lst)
 ###################################################################################################
+"\nDECORATES  DECORATES  DECORATES   DECORATES  DECORATES  DECORATES   DECORATES\n"
+
+###################################################################################################
+"""
+Объявите функцию с именем get_sq, которая вычисляет площадь прямоугольника по двум параметрам:
+ width и height - ширина и высота прямоугольника. И возвращает результат (сама ничего на 
+ экран не выводит). То есть, функция имеет сигнатуру:
+def get_sq(width, height): ...
+Определите декоратор func_show для этой функции, который ОТОБРАЖАЕТ результат на экране в 
+виде строки (без кавычек):
+"Площадь прямоугольника: <значение>"
+Вызывать функцию и декоратор не нужно, только объявить. ПРИМЕНЯТЬ декоратор к функции также 
+не нужно.
+Sample Input:
+8 11
+Sample Output:
+Площадь прямоугольника: 88
+"""
+# def func_show(func, *args, **kwargs):
+#     def wrapper(*args, **kwargs):
+#         print(f'Площадь прямоугольника: {func(*args)}')
+#
+#     return wrapper
+#
+#
+# def get_sq(width, height):
+#     return width * height
+#
+# x, y = map(int, input().split())
+# get_sq = func_show(get_sq)(x, y)
+###################################################################################################
+
+
 
 
 
