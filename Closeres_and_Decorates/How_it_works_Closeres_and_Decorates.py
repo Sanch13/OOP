@@ -1,3 +1,6 @@
+#  https://docs-python.ru/tutorial/dekoratory-python/dekoratory-argumentami/
+
+
 """
 CLOSURE    CLOSURE    CLOSURE    CLOSURE    CLOSURE    CLOSURE    CLOSURE    CLOSURE    CLOSURE
 Замыкание (closure) — функция, которая находится внутри другой функции и ссылается
