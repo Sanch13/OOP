@@ -1,5 +1,5 @@
 #  https://docs-python.ru/tutorial/dekoratory-python/dekoratory-argumentami/
-
+# https://habr.com/ru/post/141411/
 
 """
 CLOSURE    CLOSURE    CLOSURE    CLOSURE    CLOSURE    CLOSURE    CLOSURE    CLOSURE    CLOSURE
