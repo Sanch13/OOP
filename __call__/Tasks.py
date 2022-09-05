@@ -140,37 +140,72 @@
 ###################################################################################################
 
 
-class Handler:
-    def __init__(self, methods=('GET',)):   # передаем арг. декоратору класса. По умолч. 'GET'
-        self.methods = methods              # передаем арг. декоратору класса
-
-    def __call__(self, func, *args, **kwargs):  # метод __call__ исп. как декоратор общего
-        # назначения (декоратор без аргументов). func - это ссылка на декор. фун.
-        def wrapper(request, *args, **kwargs):      # внут. фун. кот. прин. послед. request
-            method = request.get('method', 'GET')   # по ключу method вызыв. знач. или по умол.
-            if method in self.methods:  # если знач. method есть в арг. декор. класса то
-                return self.__getattribute__(method.lower())(func, request) # вызыв. соотвт.
-                # метод класса и передаем ссылку (то же будет арг.) на декор. фун. и арг. request
-        return wrapper
-
-    def get(self, func, request, *args, **kwargs):  # вернет строку и обратится по ссылке func
-        return f"GET: {func(request)}"    # кот. вернет строку. также обяз. перед. 1 арг. request
-
-    def post(self, func, request, *args, **kwargs):  # вернет строку и обратится по ссылке func
-        return f"POST: {func(request)}"   # кот. вернет строку. также обяз. перед. 1 арг. request
-
-
-@Handler(methods=('GET', 'POST'))   # передаем арг. декоратору класса Handler
-def contact(request):               # декор. фун.
-    return "Сергей Балакирев"       # вернет строку
-
-
-res = contact({"method": "POST", "url": "contact.html"})
-print(res)
+# class Handler:
+#     def __init__(self, methods=('GET',)):   # передаем арг. декоратору класса. По умолч. 'GET'
+#         self.methods = methods              # передаем арг. декоратору класса
+#
+#     def __call__(self, func, *args, **kwargs):  # метод __call__ исп. как декоратор общего
+#         # назначения (декоратор без аргументов). func - это ссылка на декор. фун.
+#         def wrapper(request, *args, **kwargs):      # внут. фун. кот. прин. послед. request
+#             method = request.get('method', 'GET')   # по ключу method вызыв. знач. или по умол.
+#             if method in self.methods:  # если знач. method есть в арг. декор. класса то
+#                 return self.__getattribute__(method.lower())(func, request) # вызыв. соотвт.
+#                 # метод класса и передаем ссылку (то же будет арг.) на декор. фун. и арг. request
+#         return wrapper
+#
+#     def get(self, func, request, *args, **kwargs):  # вернет строку и обратится по ссылке func
+#         return f"GET: {func(request)}"    # кот. вернет строку. также обяз. перед. 1 арг. request
+#
+#     def post(self, func, request, *args, **kwargs):  # вернет строку и обратится по ссылке func
+#         return f"POST: {func(request)}"   # кот. вернет строку. также обяз. перед. 1 арг. request
+#
+#
+# @Handler(methods=('GET', 'POST'))   # передаем арг. декоратору класса Handler
+# def contact(request):               # декор. фун.
+#     return "Сергей Балакирев"       # вернет строку
+#
+#
+# res = contact({"method": "POST", "url": "contact.html"})
+# print(res)
 ###################################################################################################
 
 
+# class InputDigits:
+#     def __init__(self, func):
+#         self.func = func
+#
+#     def __call__(self, *args, **kwargs):
+#         return list(map(int, self.func().split()))
+#
+#
+# @InputDigits
+# def input_dg():
+#     return input()
+#
+#
+# res = input_dg()
+# print(res)
+###################################################################################################
 
 
-
-
+# class InputValues:
+#     def __init__(self, render):     # render - ссылка на функцию или объект для преобразования
+#         self.render = render        # здесь строчки программы
+#
+#     def __call__(self, func):       # func - ссылка на декорируемую функцию
+#         def wrapper(*args, **kwargs):
+#             return list(map(self.render, func().split()))
+#         return wrapper
+#
+#
+# class RenderDigit:
+#     def __call__(self, s, *args, **kwargs):
+#         if s.isdigit() or s[0] == '-' and s[1:].isdigit():
+#             return int(s)
+#
+#
+# render = RenderDigit()
+# input_dg = InputValues(render)(input)
+# res = input_dg()
+# print(res)
+###################################################################################################
