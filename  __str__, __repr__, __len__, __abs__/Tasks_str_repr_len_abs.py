@@ -85,86 +85,136 @@
 # print(words.string)
 # print(f"Число слов: {n}; первое слово: {first}")
 ###################################################################################################
-class ObjList:
-    def __init__(self, data: str):
-        self.data = data
-        self.prev = self.next = None
-
-    @property
-    def data(self):
-        return self.__data
-
-    @data.setter
-    def data(self, value):
-        self.__data = value
-
-    @property
-    def prev(self):
-        return self.__prev
-
-    @prev.setter
-    def prev(self, value):
-        self.__prev = value
-
-    @property
-    def next(self):
-        return self.__next
-
-    @next.setter
-    def next(self, value):
-        self.__next = value
-
-
-class LinkedList:
-    def __init__(self):
-        self.head = self.tail = None
-
-    def add_obj(self, obj):
-        if self.head is None:
-            self.head = self.tail = obj
-            return
-        self.tail.next = obj
-        obj.prev = self.tail
-        self.tail = obj
-
-    def remove_obj(self, indx):
-        pointer = self.head
-        if indx == 0:
-            if pointer is None:
-                return
-            if pointer.next is None:
-                self.head = self.tail = None
-                return
-            pointer.next.prev = None
-            self.head = pointer.next
-            return
-        count = 0
-        # while pointer:
-        #     if count == indx:
-        #
-        #     pointer = pointer.next
-        #     count += 1
-
-
-
-
-    def show_data(self):
-        out_data = []
-        pointer = self.head
-        while pointer:
-            out_data.append(pointer.data)
-            pointer = pointer.next
-
-        return out_data
-
-
-linked_lst = LinkedList()
-linked_lst.add_obj(ObjList("Sergey"))
-linked_lst.add_obj(ObjList("Balakirev"))
-print(linked_lst.show_data())
-linked_lst.remove_obj(0)
-linked_lst.add_obj(ObjList("Python"))
-print(linked_lst.show_data())
+# class ObjList:
+#     def __init__(self, data: str):
+#         self.data = data
+#         self.prev = self.next = None
+#
+#     @property
+#     def data(self):
+#         return self.__data
+#
+#     @data.setter
+#     def data(self, value):
+#         self.__data = value
+#
+#     @property
+#     def prev(self):
+#         return self.__prev
+#
+#     @prev.setter
+#     def prev(self, value):
+#         self.__prev = value
+#
+#     @property
+#     def next(self):
+#         return self.__next
+#
+#     @next.setter
+#     def next(self, value):
+#         self.__next = value
+#
+#
+# class LinkedList:
+#     def __init__(self):
+#         self.head = self.tail = None
+#
+#     def __call__(self, indx, *args, **kwargs):
+#         return self.get_data_for_index(indx)
+#
+#     def add_obj(self, obj):
+#         """Добавляет новый объект obj в конец связного списка"""
+#         if self.head is None:                   # Если self.head ссылается на None то
+#             self.head = self.tail = obj         # связ. список пустой. Указ. ссылки на obj и
+#             return                              # выходим из метода.
+#         self.tail.next = obj                    # Во всех других случаях: Указ. tail.next на нов.
+#         obj.prev = self.tail                    # obj. obj.prev указвыаем на self.tail. И
+#         self.tail = obj                         # двигаем self.tail на последний obj
+#
+#     def remove_obj(self, indx):
+#         """Удаляет объект из связного списка по его порядковому номеру (индексу)"""
+#         pointer = self.head                     # Устан. указ. pointer на начало связн. списка
+#         if indx == 0:                           # Если удаляемый индекс равен 0 то
+#             if pointer is None:                 # Если pointer указ. на None то связ. список пуст
+#                 return                          # Выходим из метода.
+#             if pointer.next is None:            # Если pointer.next указ. на None то в связ. сп.
+#                 self.head = self.tail = None    # только 1 obj. Указ. ссылки на None
+#                 return                          # Выходим из метода.
+#             pointer.next.prev = None            # Иначе 2 obj лок. св-ву prev указ. ссылку на None
+#             self.head = pointer.next            # self.head указываем на 2 obj связ. списка
+#             return                              # Выходим из метода.
+#         count = 0
+#         while pointer:
+#             if count == indx:                   # если count == удал. индексу то:
+#                 if pointer.next is None:        # след. obj ссылается на None (явл. ли послед.)
+#                     self.tail = pointer.prev    # self.tail указ. на предпосл. obj
+#                     self.tail.next = None       # предпосл. obj лок. св-ву next указ ссылку на None
+#                 else:
+#                     pointer.prev.next = pointer.next    # пересвязываем ссылки связ. спсика
+#                     pointer.next.prev = pointer.prev    # пересвязываем ссылки связ. спсика
+#             pointer = pointer.next              # двигаемся по связ. списку
+#             count += 1                          # увелич. счетчик
+#
+#     def __len__(self):
+#         """Возвращает кол-во объектов связанного списка"""
+#         pointer = self.head
+#         count = 0
+#         while pointer:
+#             count += 1
+#             pointer = pointer.next
+#         return count
+#
+#     def get_data_for_index(self, indx):
+#         """Возвращает данные из объекта связанного списка по его индексу"""
+#         pointer = self.head
+#         while indx != 0:
+#             if pointer.next is None:
+#                 return None
+#             pointer = pointer.next
+#             indx -= 1
+#         return pointer.data
+#
+#     def show_data(self):
+#         out_data = []
+#         pointer = self.head
+#         while pointer:
+#             out_data.append(pointer.data)
+#             pointer = pointer.next
+#         return out_data
+#
+#
+# linked_lst = LinkedList()
+# linked_lst.add_obj(ObjList("Sergey"))
+# linked_lst.add_obj(ObjList("Balakirev"))
+# print(linked_lst.show_data())           # ['Sergey', 'Balakirev']
+# linked_lst.remove_obj(0)                # del Sergey
+# print(linked_lst.show_data())           # ['Balakirev']
+# linked_lst.add_obj(ObjList("Python"))
+# linked_lst.add_obj(ObjList("Java"))
+# linked_lst.add_obj(ObjList("GoLang"))
+# print(linked_lst.show_data())           # ['Balakirev', 'Python', 'Java', 'GoLang']
+# linked_lst.remove_obj(1)                # del Python
+# print(linked_lst.show_data())           # ['Balakirev', 'Java', 'GoLang']
+# linked_lst.add_obj(ObjList("C++"))
+# linked_lst.add_obj(ObjList("JavaScript"))
+# print(linked_lst.show_data())           # ['Balakirev', 'Java', 'GoLang', 'C++', 'JavaScript']
+# linked_lst.remove_obj(2)                # del GoLang
+# print(linked_lst.show_data())           # ['Balakirev', 'Java', 'C++', 'JavaScript']
+# n = len(linked_lst)                     # n = 4
+# s = linked_lst(3)
+# print(s)
+#
+# ln = LinkedList()
+# ln.add_obj(ObjList("Сергей"))
+# ln.add_obj(ObjList("Балакирев"))
+# ln.add_obj(ObjList("Python ООП"))
+# ln.remove_obj(2)
+# print(len(ln))
+# print(ln.show_data())
+# assert len(ln) == 2, "функция len вернула неверное число объектов в списке, возможно, неверно работает метод remove_obj()"
+# ln.add_obj(ObjList("Python"))
+# assert ln(2) == "Python", "неверное значение атрибута __data, взятое по индексу"
+###################################################################################################
 
 
 
