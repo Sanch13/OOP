@@ -289,5 +289,48 @@
 # res_abs = abs(vector3D)
 # print(res_abs)
 ###################################################################################################
+# class Clock:
+#     def __init__(self, hours: int, minutes: int, seconds: int):
+#         if self.__check_value(hours):
+#             self.hours = hours
+#         if self.__check_value(minutes):
+#             self.minutes = minutes
+#         if self.__check_value(seconds):
+#             self.seconds = seconds
+#
+#     @staticmethod
+#     def __check_value(value):
+#         return isinstance(value, int) and value >= 0
+#
+#     def get_time(self):
+#         return self.hours * 3600 + self.minutes * 60 + self.seconds
+#
+#
+# class DeltaClock:
+#     def __init__(self, clock_1: Clock, clock_2: Clock):
+#         self.clock_1 = clock_1
+#         self.clock_2 = clock_2
+#
+#     def __difference_time(self):
+#         return self.clock_1.get_time() - self.clock_2.get_time()
+#
+#     def __str__(self):
+#         time = self.__difference_time()
+#         if time < 0:
+#             return f'00: 00: 00'
+#         h, m, s = time // 3600, time % 3600 // 60, time % 3600 % 60
+#         return f'{h:02}: {m:02}: {s:02}'
+#
+#     def __len__(self):
+#         return self.__difference_time()
+#
+#
+# dt = DeltaClock(Clock(2, 45, 0), Clock(1, 15, 0))
+# print(dt, type(dt))  # 01: 30: 00
+# len_dt = len(dt) # 5400
+# print(len_dt)
+# str_dt = str(dt)
+# print(str_dt, type(str_dt))
+###################################################################################################
 
 
