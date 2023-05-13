@@ -14,6 +14,12 @@ b = Point()     # Создается экземпляр b класса Point
 # print(Point.__dict__)  # {'color': 'Grey', 'circle': 2 and other param}
 # print(id(a.color) == id(b.color), a.color, b.color)  # False Grey Green. a ссылается на на атрибут color класса Point
 #                                                      # b ссылается на локальное свойство color экземпляра b класса Point
+# setattr(obj, name, value)  # устанавливаем/перезаписываем значение value атрибуту name из
+# пространства  имен obj
+# getattr(obj, name, False)  #  читаем значение из name, если name нет вернется False
+# del Point.color  # удалить атрибут color из класса Point, если его нет то выдаст ошибку
+# delattr(obj, name)  # удалить атрибут name из пространства obj, если его нет то выдаст ошибку
+
 #########################################################################################
 class Goods:     # Создается класс Goods
     title = "Мороженое"  # Создается атрибут класса title с знач. "Мороженое" класса Goods
