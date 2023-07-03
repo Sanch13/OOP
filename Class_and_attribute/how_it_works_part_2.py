@@ -145,9 +145,9 @@ class TriangleChecker:  # здесь объявите класс TriangleChecker
 
     @classmethod
     def __check_int_float(cls, x):  # Проверка явл. ли х int or float и x >= 0.
-        return type(x) in (int, float) and x >= 0  # return True else False
+        return isinstance(x, (int, float)) and x >= 0
+        # return type(x) in (int, float) and x >= 0  # return True else False
 
->>>>>>> ad0776f24c4f96c5fa1210f7d48fd8d626a5c06c
 
     def is_triangle(self):
         a, b, c = self.a, self.b, self.c  # переопределение лок. св-в для удобства

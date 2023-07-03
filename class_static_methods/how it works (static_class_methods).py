@@ -42,3 +42,9 @@ class Test:
 
 t = Test()
 t.static_method(5, 6)
+print(t.x, t.y)
+print(Test.__dict__)
+print(Test().x, Test().y)
+Test.x = 10
+print(Test.__dict__)
+print(Test().x, Test().y)
