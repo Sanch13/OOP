@@ -22,6 +22,16 @@ class TreeObj:
 
 
 class DecisionTree:
+    # my version is below
+    # @classmethod
+    # def predict(cls, root, x):
+    #     cur_obj = root
+    #     if x[0]:
+    #         cur_obj = cur_obj.left
+    #     else:
+    #         cur_obj = cur_obj.right
+    #     return cur_obj.left.value if x[cur_obj.indx] else cur_obj.right.value
+
     @classmethod
     def predict(cls, root, x):
         obj = root
