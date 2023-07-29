@@ -162,6 +162,7 @@
 #             if method in self.methods:  # если знач. method есть в арг. декор. класса то
 #                 return self.__getattribute__(method.lower())(func, request) # вызыв. соотвт.
 #                 # метод класса и передаем ссылку (то же будет арг.) на декор. фун. и арг. request
+#                 return getattr(self, method.lower())(func, request)
 #         return wrapper
 #
 #     def get(self, func, request, *args, **kwargs):  # вернет строку и обратится по ссылке func
