@@ -18,6 +18,17 @@
 
 # lst_pass = [rnd() for _ in range(3)]    # созд. список из функтров=(пароли) экз. rnd
 # print(lst_pass)
+# closures
+# def randpasww(min_length, max_length, psw_chars):
+#     def wrapper():
+#         number = randrange(start=min_length, stop=max_length)
+#         return "".join([choice(psw_chars) for _ in range(number)])
+#
+#     return wrapper
+#
+#
+# res = randpasww(min_length=2, max_length=20, psw_chars="1234567890")
+# print([res() for _ in range(3)])
 ###################################################################################################
 
 
@@ -151,6 +162,7 @@
 #             if method in self.methods:  # если знач. method есть в арг. декор. класса то
 #                 return self.__getattribute__(method.lower())(func, request) # вызыв. соотвт.
 #                 # метод класса и передаем ссылку (то же будет арг.) на декор. фун. и арг. request
+#                 return getattr(self, method.lower())(func, request)
 #         return wrapper
 #
 #     def get(self, func, request, *args, **kwargs):  # вернет строку и обратится по ссылке func

@@ -416,4 +416,61 @@ print(my_water.slots)
 w = my_water.water_on() # False
 print(w)
 ##################################################################################################
-
+# import time
+#
+#
+# class Filter:
+#     def __init__(self, date):
+#         self.date = date
+#
+#     def __setattr__(self, key, value):
+#         if self.__dict__.get("date", False):
+#             return
+#         object.__setattr__(self, key, value)
+#
+#
+# class Mechanical(Filter):
+#     pass
+#
+#
+# class Aragon(Filter):
+#     pass
+#
+#
+# class Calcium(Filter):
+#     pass
+#
+#
+# class GeyserClassic:
+#     MAX_DATE_FILTER = 100
+#     MIN_DATE_FILTER = 0
+#     FILTER = {"Mechanical": 1, "Aragon": 2, "Calcium": 3}
+#
+#     def __init__(self):
+#         self.slots = {1: None, 2: None, 3: None}
+#
+#     @classmethod
+#     def check_filter(cls, slot_num, filter):
+#         return slot_num == cls.FILTER.get(filter.__class__.__name__)
+#
+#     def add_filter(self, slot_num, filter):
+#         if self.slots.get(slot_num) is None and self.check_filter(slot_num, filter):
+#             self.slots[slot_num] = filter
+#
+#     def remove_filter(self, slot_num):
+#         if self.slots.get(slot_num):
+#             self.slots[slot_num] = None
+#
+#     def get_filters(self):
+#         return tuple(self.slots.values())
+#
+#     def water_on(self):
+#         return all(self.slots.values()) and \
+#                all(map(self.check_time_value_filter, self.get_value_filter()))
+#
+#     @classmethod
+#     def check_time_value_filter(cls, filter):
+#         return cls.MIN_DATE_FILTER <= filter <= cls.MAX_DATE_FILTER
+#
+#     def get_value_filter(self):
+#         return [time.time() - obj.date for obj in self.slots.values()]

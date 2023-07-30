@@ -30,6 +30,20 @@
 #         return f'Model: id = {self.id}, fio = {self.fio}, old = {self.old}'
 #
 #
+# class Model: # 2 way
+#     def __init__(self):
+#         self.objects = {}
+#
+#     def query(self, *args, **kwargs):
+#         self.objects = kwargs
+#
+#     def __str__(self):
+#         if len(self.objects) != 0:
+#             objects = ", ".join([f'{k} = {v}' for k, v in self.objects.items()])
+#             return f"Model: {objects}"
+#         return "Model"
+#
+#
 # model = Model()
 # model.query(id=1, fio='Sergey', old=33)
 # print(model)
