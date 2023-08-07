@@ -23,6 +23,8 @@
 # (объекты заменяются на соответствующие строки, между словами ставится пробел).
 # P.S. На экран в программе ничего выводить не нужно.
 
+import re
+
 stich = ["Я к вам пишу – чего же боле?",
          "Что я могу еще сказать?",
          "Теперь, я знаю, в вашей воле",
@@ -30,8 +32,6 @@ stich = ["Я к вам пишу – чего же боле?",
          "Но вы, к моей несчастной доле",
          "Хоть каплю жалости храня,",
          "Вы не оставите меня."]
-
-chars = "–?!,.;"
 
 
 class StringText:
@@ -48,14 +48,7 @@ class StringText:
         return len(self) >= len(other)
 
 
-lst_text = [StringText([word.strip(chars) for word in row.split() if word not in chars]) for row in stich]
+lst_text = [StringText(re.findall(r"""\w+""", row)) for row in stich]
 lst_text_sorted = sorted(lst_text, key=lambda x: len(x), reverse=True)
 lst_text_sorted = [" ".join(row.lst_words) for row in lst_text_sorted]
 print(lst_text_sorted)
-
-# st1 = lst_text[0]
-# st2 = lst_text[1]
-# print(st1 > st2)   # True, если число слов в st1 больше, чем в st2
-# print(st1 >= st2)  # True, если число слов в st1 больше или равно st2
-# print(st1 < st2)  # True, если число слов в st1 меньше, чем в st2
-# print(st1 <= st2)  # True, если число слов в st1 меньше или равно st
