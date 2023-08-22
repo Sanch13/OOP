@@ -38,6 +38,7 @@
 # res = mt[1, 0] # 3
 # res = mt[1, 1] # 4
 # P.S. В программе нужно объявить только класс. Выводить на экран ничего не нужно.
+import numpy as np
 
 
 class Matrix:
@@ -47,6 +48,8 @@ class Matrix:
             self.list2D = [[self.fill_value for _ in range(self.cols)] for _ in range(self.rows)]
         else:
             self.list2D = self.check_lst(*args)
+            self.rows, self.cols = len(self.list2D), len(self.list2D[0])
+        self.matrix = np.array(self.list2D)
 
     def __len__(self):
         return len(self.list2D)
@@ -65,8 +68,8 @@ class Matrix:
 
     def check_index(self, index):
         row, col = index
-        r = list(range(len(self.list2D)))
-        c = list(range(len(self.list2D[0])))
+        r = list(range(self.rows))
+        c = list(range(self.cols))
         if row not in r or col not in c:
             raise IndexError('недопустимые значения индексов')
 
@@ -85,24 +88,24 @@ class Matrix:
             return rows, cols, fill_value
         raise TypeError('аргументы rows, cols - целые числа; fill_value - произвольное число')
 
-    def check_matrix(self, other):
-        if not any(len(self.list2D) == len(other.list2D) for _ in range(len(self.list2D))):
+    @staticmethod
+    def check_equal_matrix(m1, m2):
+        if not (m1.rows == m2.rows and m1.cols == m2.cols):
             raise ValueError('операции возможны только с матрицами равных размеров')
 
     def __add__(self, other):
         if isinstance(other, (int, float)):
-            return Matrix([[el + other for el in row] for row in self.list2D])
+            return Matrix((self.matrix + other).tolist())
         elif isinstance(other, Matrix):
-            self.check_matrix(other)
-            res = [[self.list2D[i][j] + other.list2D[i][j] \
-                    for j in range(len(list2D[0]))] \
-                    for i in range(len(list2D))]
-            return Matrix(res)
+            self.check_equal_matrix(self, other)
+            return Matrix((self.matrix + other.matrix).tolist())
 
-
-
-    def __repr__(self):
-        return f"{[[self.fill_value for _ in range(self.cols)] for _ in range(self.rows)]}"
+    def __sub__(self, other):
+        if isinstance(other, (int, float)):
+            return Matrix((self.matrix - other).tolist())
+        elif isinstance(other, Matrix):
+            self.check_equal_matrix(self, other)
+            return Matrix((self.matrix - other.matrix).tolist())
 
 
 # matrix = Matrix(4, 5, 0)
@@ -112,7 +115,6 @@ class Matrix:
 # matrix[0, 0] = 235
 # print(matrix)
 # print(len(matrix))
-
 
 list2D = [[1, 2], [3, 4], [5, 6, 7]]
 try:
@@ -186,26 +188,104 @@ assert matrix[1, 1] == 5, "неверно отработала операция 
 assert m1[1, 1] == 4 and m1[0, 1] == 2 and m2[1, 1] == 1 \
        and m2[0, 0] == 1, "исходные матрицы не должны меняться при операции сложения"
 
-# m1 = Matrix(2, 2, 1)
-# id_m1_old = id(m1)
-# m2 = Matrix(2, 2, 1)
-# m1 = m1 + m2
-# id_m1_new = id(m1)
-# assert id_m1_old != id_m1_new, "в результате операции сложения должен создаваться НОВЫЙ экземпляр класса Matrix"
+m1 = Matrix(2, 2, 1)
+id_m1_old = id(m1)
+m2 = Matrix(2, 2, 1)
+m1 = m1 + m2
+id_m1_new = id(m1)
+assert id_m1_old != id_m1_new, "в результате операции сложения должен создаваться НОВЫЙ экземпляр класса Matrix"
+
+matrix = Matrix(2, 2, 0)
+m = matrix + 10
+assert matrix[0, 0] == matrix[1, 1] == 0, "исходные матрицa не должна меняться при операции сложения c числом"
+assert m[0, 0] == 10, "неверно отработала операция сложения матрицы с числом"
+
+m1 = Matrix(2, 2, 1)
+m2 = Matrix([[0, 1], [1, 0]])
+identity_matrix = m1 - m2  # должна получиться единичная матрица
+assert m1[0, 0] == 1 and m1[1, 1] == 1 and m2[0, 0] == 0 \
+       and m2[0, 1] == 1, "исходные матрицы не должны меняться при операции вычитания"
+assert identity_matrix[0, 0] == 1 and identity_matrix[1, 1] == 1, "неверно отработала операция вычитания матриц"
+
+matrix = Matrix(2, 2, 1)
+m = matrix - 1
+assert matrix[0, 0] == 1, "некорректно отработал оператор -"
+assert matrix[0, 0] == matrix[1, 1] == 1, "исходные матрицa не должна меняться при операции вычитания c числом"
+assert m[0, 0] == m[1, 1] == 0, "неверно отработала операция вычитания числа из матрицы"
+
+
+# class Matrix:
+#     def __init__(self, *args):
+#         if len(args) == 3:
+#             self.rows, self.cols, self.fill_value = self.check_args(*args)
+#             self.list2D = [[self.fill_value for _ in range(self.cols)] for _ in range(self.rows)]
+#         else:
+#             self.list2D = self.check_lst(*args)
+#             self.rows, self.cols = len(self.list2D), len(self.list2D[0])
 #
-# matrix = Matrix(2, 2, 0)
-# m = matrix + 10
-# assert matrix[0, 0] == matrix[1, 1] == 0, "исходные матрицa не должна меняться при операции сложения c числом"
-# assert m[0, 0] == 10, "неверно отработала операция сложения матрицы с числом"
+#     def __len__(self):
+#         return len(self.list2D)
 #
-# m1 = Matrix(2, 2, 1)
-# m2 = Matrix([[0, 1], [1, 0]])
-# identity_matrix = m1 - m2  # должна получиться единичная матрица
-# assert m1[0, 0] == 1 and m1[1, 1] == 1 and m2[0, 0] == 0 \
-#        and m2[0, 1] == 1, "исходные матрицы не должны меняться при операции вычитания"
-# assert identity_matrix[0, 0] == 1 and identity_matrix[1, 1] == 1, "неверно отработала операция вычитания матриц"
+#     def __getitem__(self, item):
+#         self.check_index(item)
+#         row, col = item
+#         return self.list2D[row][col]
 #
-# matrix = Matrix(2, 2, 1)
-# m = matrix - 1
-# assert matrix[0, 0] == matrix[1, 1] == 1, "исходные матрицa не должна меняться при операции вычитания c числом"
-# assert m[0, 0] == m[1, 1] == 0, "неверно отработала операция вычитания числа из матрицы"
+#     def __setitem__(self, key, value):
+#         self.check_index(key)
+#         if not isinstance(value, (int, float)):
+#             raise TypeError('значения матрицы должны быть числами')
+#         row, col = key
+#         self.list2D[row][col] = value
+#
+#     def check_index(self, index):
+#         row, col = index
+#         r = list(range(self.rows))
+#         c = list(range(self.cols))
+#         if row not in r or col not in c:
+#             raise IndexError('недопустимые значения индексов')
+#
+#     @staticmethod
+#     def check_lst(*args):
+#         check_nums = all(1 if isinstance(el, (int, float)) else 0 for row in args[0] for el in row)
+#         for row in range(1, len(args[0])):
+#             if len(args[0][row - 1]) != len(args[0][row]) or not check_nums:
+#                 raise TypeError('список должен быть прямоугольным, состоящим из чисел')
+#         return args[0]
+#
+#     @staticmethod
+#     def check_args(*args):
+#         rows, cols, fill_value = args
+#         if isinstance(rows, int) and isinstance(cols, int) and isinstance(fill_value, (int, float)):
+#             return rows, cols, fill_value
+#         raise TypeError('аргументы rows, cols - целые числа; fill_value - произвольное число')
+#
+#     @staticmethod
+#     def check_matrix(matrix1, matrix2):
+#         if len(matrix1) != len(matrix2):
+#             raise ValueError('операции возможны только с матрицами равных размеров')
+#         for i in range(len(matrix1)):
+#             if len(matrix1.list2D[i]) != len(matrix2.list2D[i]):
+#                 raise ValueError('операции возможны только с матрицами равных размеров')
+#
+#     def __add__(self, other):
+#         if isinstance(other, (int, float)):
+#             return Matrix([[el + other for el in row] for row in self.list2D])
+#         elif isinstance(other, Matrix):
+#             self.check_matrix(self, other)
+#             res = [[0 for _ in range(self.rows)] for _ in range(self.cols)]
+#             for i in range(self.rows):
+#                 for j in range(self.cols):
+#                     res[i][j] = self.list2D[i][j] + other.list2D[i][j]
+#             return Matrix(res)
+#
+#     def __sub__(self, other):
+#         if isinstance(other, (int, float)):
+#             return Matrix([[el - other for el in row] for row in self.list2D])
+#         elif isinstance(other, Matrix):
+#             self.check_matrix(self, other)
+#             res = [[0 for _ in range(self.rows)] for _ in range(self.cols)]
+#             for i in range(self.rows):
+#                 for j in range(self.cols):
+#                     res[i][j] = self.list2D[i][j] - other.list2D[i][j]
+#             return Matrix(res)
