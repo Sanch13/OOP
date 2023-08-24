@@ -56,14 +56,14 @@ class Thing:
 
 
 class Table(Thing):
-    def __init__(self, name, price, weight, dims):
+    def __init__(self, name, price, weight=None, dims=None):
         super().__init__(name, price)
         self.weight = weight
         self.dims = dims
 
 
 class ElBook(Thing):
-    def __init__(self, name, price, memory, frm):
+    def __init__(self, name, price, memory=None, frm=None):
         super().__init__(name, price)
         self.memory = memory
         self.frm = frm
